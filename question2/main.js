@@ -1,3 +1,4 @@
+"use strict";
 /**
  * findOutlier - This function accepts an array of integers, which is guaranteed
  * to be either entirely comprised of odd integers or entirely comprised of even
@@ -23,24 +24,25 @@
  *  const outlier = findOutlier([2, 4, 0, 100, 4, 11, 2602, 36]);
  *  console.log(outlier); // Outputs: 11
  */
-
-export function findOutlier(integers: number[]): number {
-  let evenNumbers: number[] = [];
-  let oddNumbers: number[] = [];
-  for (let i = 0; i < integers.length; i++) {
-    if (integers[i] % 2 === 0) {
-      evenNumbers.push(integers[i]);
-    } else if (integers[i] % 2 !== 0) {
-      oddNumbers.push(integers[i]);
+exports.__esModule = true;
+exports.findOutlier = void 0;
+function findOutlier(integers) {
+    var evenNumbers = [];
+    var oddNumbers = [];
+    for (var i = 0; i < integers.length; i++) {
+        if (integers[i] % 2 === 0) {
+            evenNumbers.push(integers[i]);
+        }
+        else if (integers[i] % 2 !== 0) {
+            oddNumbers.push(integers[i]);
+        }
     }
-  }
-  return evenNumbers.length === 1 ? evenNumbers[0] : oddNumbers[0];
+    return evenNumbers.length === 1 ? evenNumbers[0] : oddNumbers[0];
 }
-
+exports.findOutlier = findOutlier;
 // An example that has an odd outlier
-const oddExample: number = findOutlier([4, 6, 10, 24, 56, 7, 90, 102, 38, 76]);
+var oddExample = findOutlier([4, 6, 10, 24, 56, 7, 90, 102, 38, 76]);
 // An example that has an even outlier
-const evenExample: number = findOutlier([13, 17, 4, 101, 77, 93, 45, 67]);
-
+var evenExample = findOutlier([13, 17, 4, 101, 77, 93, 45, 67]);
 console.log(oddExample); // Expected Result: 7
 console.log(evenExample); // Expected Result: 4
