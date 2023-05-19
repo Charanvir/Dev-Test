@@ -1,3 +1,6 @@
+/**
+ * Represents a node in the Connect4 grid.
+ */
 class GridNode {
   value: number;
   top: GridNode | null;
@@ -22,26 +25,32 @@ class GridNode {
   }
 }
 
-const ROWS = 6;
-const COLUMNS = 7;
-
+/**
+ * Represents a Connect4 game.
+ */
 export class Connect4 {
   currentPlayer: number;
   grid: GridNode[][];
   gameFinished: boolean;
 
+  /**
+   * Creates a new instance of Connect4.
+   */
   constructor() {
     this.currentPlayer = 1;
     this.grid = this.createGrid();
     this.gameFinished = false;
   }
 
+  /**
+   * Creates and initializes the Connect4 grid.
+   * @returns The initialized grid as a 2D array of GridNodes.
+   */
   createGrid(): GridNode[][] {
     const ROWS = 6;
     const COLUMNS = 7;
     let grid: GridNode[][] = [];
 
-    // Initialize the first row separately
     let firstRow: GridNode[] = [];
     for (let c = 0; c < COLUMNS; c++) {
       firstRow.push(new GridNode(0));
@@ -52,7 +61,6 @@ export class Connect4 {
     }
     grid.push(firstRow);
 
-    // Initialize the rest of the grid
     for (let r = 1; r < ROWS; r++) {
       let row: GridNode[] = [];
       for (let c = 0; c < COLUMNS; c++) {
@@ -76,6 +84,11 @@ export class Connect4 {
     return grid;
   }
 
+  /**
+   * Plays a move in the Connect4 game.
+   * @param column - The column where the player wants to place their disc.
+   * @returns The game status message based on the move.
+   */
   play(column: number): string {
     if (this.gameFinished) {
       return "Game has finished!";
@@ -95,8 +108,9 @@ export class Connect4 {
           return "Player " + this.currentPlayer + " wins!";
         }
 
+        const messageplayer: number = this.currentPlayer;
         this.currentPlayer = this.currentPlayer === 1 ? 2 : 1;
-        return "Player " + this.currentPlayer + " has a turn";
+        return "Player " + messageplayer + " has a turn";
       }
 
       currentRow--;
@@ -105,6 +119,12 @@ export class Connect4 {
     return "Column full!";
   }
 
+  /**
+   * Checks if a player has won the game.
+   * @param row - The row of the last placed disc.
+   * @param column - The column of the last placed disc.
+   * @returns True if a player has won, false otherwise.
+   */
   checkWin(row: number, column: number): boolean {
     const player = this.grid[row][column].value;
 

@@ -1,6 +1,9 @@
 "use strict";
 exports.__esModule = true;
 exports.Connect4 = void 0;
+/**
+ * Represents a node in the Connect4 grid.
+ */
 var GridNode = /** @class */ (function () {
     function GridNode(value) {
         this.value = value;
@@ -15,19 +18,26 @@ var GridNode = /** @class */ (function () {
     }
     return GridNode;
 }());
-var ROWS = 6;
-var COLUMNS = 7;
+/**
+ * Represents a Connect4 game.
+ */
 var Connect4 = /** @class */ (function () {
+    /**
+     * Creates a new instance of Connect4.
+     */
     function Connect4() {
         this.currentPlayer = 1;
         this.grid = this.createGrid();
         this.gameFinished = false;
     }
+    /**
+     * Creates and initializes the Connect4 grid.
+     * @returns The initialized grid as a 2D array of GridNodes.
+     */
     Connect4.prototype.createGrid = function () {
         var ROWS = 6;
         var COLUMNS = 7;
         var grid = [];
-        // Initialize the first row separately
         var firstRow = [];
         for (var c = 0; c < COLUMNS; c++) {
             firstRow.push(new GridNode(0));
@@ -37,7 +47,6 @@ var Connect4 = /** @class */ (function () {
             }
         }
         grid.push(firstRow);
-        // Initialize the rest of the grid
         for (var r = 1; r < ROWS; r++) {
             var row = [];
             for (var c = 0; c < COLUMNS; c++) {
@@ -59,6 +68,11 @@ var Connect4 = /** @class */ (function () {
         }
         return grid;
     };
+    /**
+     * Plays a move in the Connect4 game.
+     * @param column - The column where the player wants to place their disc.
+     * @returns The game status message based on the move.
+     */
     Connect4.prototype.play = function (column) {
         if (this.gameFinished) {
             return "Game has finished!";
@@ -74,13 +88,20 @@ var Connect4 = /** @class */ (function () {
                     this.gameFinished = true;
                     return "Player " + this.currentPlayer + " wins!";
                 }
+                var messageplayer = this.currentPlayer;
                 this.currentPlayer = this.currentPlayer === 1 ? 2 : 1;
-                return "Player " + this.currentPlayer + " has a turn";
+                return "Player " + messageplayer + " has a turn";
             }
             currentRow--;
         }
         return "Column full!";
     };
+    /**
+     * Checks if a player has won the game.
+     * @param row - The row of the last placed disc.
+     * @param column - The column of the last placed disc.
+     * @returns True if a player has won, false otherwise.
+     */
     Connect4.prototype.checkWin = function (row, column) {
         var player = this.grid[row][column].value;
         // Horizontal check
